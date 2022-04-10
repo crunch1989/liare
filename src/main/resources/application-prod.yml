@@ -1,0 +1,90 @@
+server:
+  servlet:
+   context-path: /app
+  port : 80
+
+# ===============================
+# = DATA SOURCE ORACLE
+# ===============================   
+spring:
+    datasource:
+     url: jdbc:oracle:thin:@192.168.1.81:1521:MININTER
+     username: ELOZANO         
+     password: ENC(9VAtHoXvKpjgYlBEEgAuhKygNit1TTbR)
+     driver-class-name: oracle.jdbc.driver.OracleDriver
+     hikari:
+      connection-timeout: 60000
+      maximum-pool-size: 50 
+      
+     #hibernate config
+    jpa:
+      #properties:
+          #hibernate:
+              #current_session_context_class: org.springframework.orm.hibernate4.SpringSessionContext
+      database-platform: org.hibernate.dialect.Oracle10gDialect
+      show-sql: true 
+   #Recomendado para jboss           
+    #jmx:
+      #default-domain: test
+      #enabled: false
+
+
+# ===============================
+# = Thymeleaf configurations
+# =============================== 
+    thymeleaf:
+      cache: false
+      check-template: true
+      check-template-location: true
+      servlet:
+        content-type:  text/html 
+      enabled: true
+      encoding: UTF-8
+      mode: HTML
+      prefix: classpath:/templates/
+      suffix: .html
+      # excluded-view-names:
+      # template-resolver-order:
+      # view-names: 
+
+      
+#CONTENT TYPES
+    mvc:
+     contentnegotiation:
+      favor-parameter : true
+      media-types:
+       pdf  : application/pdf
+       xlsx : application/vnd.openxmlformats-officedocument.spreadsheetml.sheet      
+       xml  : application/xml
+       json : application/json           
+    
+   
+#SUBIDA DE ARCHIVOS
+    servlet:
+      multipart.max-file-size : 11MB
+      multipart.max-request-size : 11MB
+      
+multipart:
+        maxFileSize: -1
+        
+        
+
+#ENCRITAR DATOS SENSIBLES  
+jasypt:
+  encryptor:
+    algorithm: PBEWithMD5AndDES
+    password: mininterpasswordsecret2019$
+
+#CONFIGURAR DE LOS LOGS POR DEFAULT EL FILE MAX SIZE SON 10MB       
+logging:
+  level:
+    #root: INFO
+    #com.memorynotfound: DEBUG
+    org.springframework.web: ERROR
+    org.springframework.security: ERROR
+    #org.hibernate.SQL: DEBUG
+    pe.gob.devida.sispost: ERROR
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
+    file: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"    
+  file: /var/logsapp/app.log    

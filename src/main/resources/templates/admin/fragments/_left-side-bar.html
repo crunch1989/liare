@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+	xmlns:th="http://www.thymeleaf.org"> 
+  
+<aside class="left-sidebar">
+   <!-- Sidebar scroll-->
+   
+   <div class="scroll-sidebar">
+   
+       <!-- Sidebar navigation-->
+       
+       <nav class="sidebar-nav">
+       
+           <ul id="sidebarnav">
+              
+               <li class="user-profile"> 
+                
+                <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false">                   
+                 
+                   <img th:src="@{assets/images/users/user-9.png}" alt="user" />                  
+                  
+                     <span class="hide-menu" th:with="currentUser=${#httpServletRequest.userPrincipal?.principal}">
+		                 <span th:if="${currentUser != null}">
+	                          <span th:text="${currentUser.nombres}">
+	                            	Full Username
+	                         </span>
+		          		 </span>
+		          	 </span>   
+                 </a>
+                   
+                   <ul aria-expanded="false" class="collapse">                       
+                       <li><a th:href="@{/logout}">Cerrar Sesion</a></li>
+                   </ul>
+                   
+               </li>
+               
+               <li class="nav-devider"></li>
+               
+               <li class="nav-small-cap">MENU DE NAVEGACION</li>              
+                  
+               
+               <li sec:authorize="hasAnyAuthority('admin')"> 
+                 <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="mdi mdi-bullseye">
+               </i><span class="hide-menu">Administración</span></a>
+                   <ul aria-expanded="false" class="collapse">
+                       
+                       
+                       <li>
+                          <a href="#" th:onclick="'javascript:viewListCategory();'">
+		                     <i class="fa fa-drivers-license-o"></i> <span>Categorias</span>            
+		                  </a>
+
+		              </li> 
+		              
+		               <li>
+                          <a href="#" th:onclick="'javascript:viewListaTipoUsuarios();'">
+		                     <i class="fa fa-drivers-license-o"></i> <span>Clientes</span>            
+		                  </a>
+		              </li> 
+
+                   <li>
+                          <a href="#" th:onclick="'javascript:viewListaTipoUsuarios();'">
+                         <i class="fa fa-drivers-license-o"></i> <span>Compras</span>            
+                      </a>
+                  </li> 
+                  <li>
+                      <a href="#" th:onclick="'javascript:viewmap();'">
+                        <i class="fa fa-drivers-license-o"></i><span>Mapa de calor</span>
+                      </a>
+                  </li>	                                    
+
+		             
+		           	                        
+
+                   </ul>
+                   
+               </li>     
+               
+               <li> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="mdi mdi-chart-bubble">
+               </i><span class="hide-menu">Reportes</span></a>
+                   <ul aria-expanded="false" class="collapse">
+                    
+                      <li>
+                          <a href="#" th:onclick="'javascript:viewReporteUsuarios();'">
+		                     <i class="fa fa-drivers-license-o"></i> <span>Reporte Inventario</span>            
+		                  </a>
+		              </li> 
+                                          
+                   </ul>
+               </li>                
+              
+           </ul>
+       </nav>
+       <!-- End Sidebar navigation -->
+   </div>
+   <!-- End Sidebar scroll-->
+</aside>  
+  
+  
+</html>
